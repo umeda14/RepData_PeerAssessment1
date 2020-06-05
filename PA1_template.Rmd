@@ -8,6 +8,12 @@ output:
 
 ## Loading and preprocessing the data
 
+# unzip the data if file doesn't exist
+if(!file.exists("exdata_data_household_power_consumption.txt"))
+  unzip("data.zip")
+
+# read the data and adjust the classes
+df <- read.csv2("household_power_consumption.txt", header = T,  dec = ".", stringsAsFactors = F,) 
 
 
 ## What is mean total number of steps taken per day?
