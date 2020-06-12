@@ -16,37 +16,20 @@ if(!file.exists("acitivity.csv"))
 # read the data and adjust the classes
 df <- read.csv("activity.csv", header = T,  stringsAsFactors = F,) 
 df$date <- as.Date(df$date)
-<<<<<<< HEAD
 ```
 ## What is mean total number of steps taken per day?
 ```{R echo = TRUE}
-=======
-df$interval <-as.character(df$interval)
-str(df)
-```
-## What is mean total number of steps taken per day?
-```{r}
->>>>>>> ef8f03f6210bdba09990c52997eff6e4dc21d830
 library("dplyr")
 df_summary <- df%>%
   group_by(date)%>%
   summarize(total = sum(steps,na.rm = TRUE) )
 hist(df_summary$total)
-<<<<<<< HEAD
 mean(df_summary$total)
 median(df_summary$total)
 ```
 ## What is the average daily activity pattern?
 ```{R echo = TRUE}
 df_daily <- df%>%
-=======
-```
-## What is the average daily activity pattern?
-```{r}
-with(df_summary, plot(x = date, y = mean, type ="l"))
-
-df_interval <- df%>%
->>>>>>> ef8f03f6210bdba09990c52997eff6e4dc21d830
   group_by(interval)%>%
   summarize(mean = mean(steps, na.rm = TRUE))
 
