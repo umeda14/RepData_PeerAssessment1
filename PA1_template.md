@@ -1,5 +1,8 @@
-
+---
+output: html_document
 title: 'Reproducible Research: Peer Assessment 1'
+---
+
 =======================================================
 
 
@@ -25,7 +28,7 @@ df_summary <- df%>%
 hist(df_summary$total, main = "Histogram of total number of steps", xlab = "Steps")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ```r
 mean(df_summary$total)
@@ -42,6 +45,8 @@ median(df_summary$total)
 ```
 ## [1] 10395
 ```
+- Mean is 9354.23. Median is 10395.
+
 ## What is the average daily activity pattern?
 
 ```r
@@ -52,7 +57,7 @@ df_daily <- df%>%
 plot(x = df_daily$interval, y = df_daily$mean, type = "l" , xlab = "interval", ylab = "mean" )
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 ```r
 df_daily[which.max(df_daily$mean),]$interval
@@ -61,7 +66,7 @@ df_daily[which.max(df_daily$mean),]$interval
 ```
 ## [1] 835
 ```
-
+- The 835th interval is the highest.
 
 ## Imputing missing values
 
@@ -86,7 +91,7 @@ df_new_data <- df_new%>%
 hist(df_new_data$total, main = "Histogram of total number of steps", xlab = "Steps")
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ```r
 mean(df_new_data$total)
@@ -103,6 +108,7 @@ median(df_new_data$total)
 ```
 ## [1] 10766.19
 ```
+- Missing values are 2304. Mean is 10766.19. Mean is 10766.19.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -123,5 +129,5 @@ ggplot(data=df_daily, aes(x = interval , y = mean))+
   facet_wrap(~day)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
