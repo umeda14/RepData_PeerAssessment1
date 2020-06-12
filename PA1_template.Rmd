@@ -1,14 +1,17 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
   html_document:
-    keep_md: true
+    keep_md: yes
+  pdf_document: default
 ---
 
 
 ## Loading and preprocessing the data
-```{R echo = TRUE, eval= FALSE}
+```{R echo = FALSE}
 setwd("C:/Users/16469/Documents/GitHub/RepData_PeerAssessment1/")
+```
+```{R echo = TRUE, messege= FALSE}
 # unzip the data if file doesn't exist
 if(!file.exists("acitivity.csv"))
   unzip("activity.zip")
@@ -18,7 +21,7 @@ df <- read.csv("activity.csv", header = T,  stringsAsFactors = F,)
 df$date <- as.Date(df$date)
 ```
 ## What is mean total number of steps taken per day?
-```{R echo = TRUE, eval = FALSE}
+```{R echo = TRUE, message = FALSE}
 library("dplyr")
 df_summary <- df%>%
   group_by(date)%>%
@@ -28,7 +31,7 @@ mean(df_summary$total)
 median(df_summary$total)
 ```
 ## What is the average daily activity pattern?
-```{R echo = TRUE, eval = FALSE}
+```{R echo = TRUE, message = FALSE}
 df_daily <- df%>%
   group_by(interval)%>%
   summarize(mean = mean(steps, na.rm = TRUE))
@@ -40,7 +43,7 @@ df_daily[which.max(df_daily$mean),]$interval
 
 
 ## Imputing missing values
-```{R echo = TRUE, eval = FALSE}
+```{R echo = TRUE, message = FALSE}
 sum(is.na(df$steps))
 #NA is replaced by the mean value
 df_new <- df %>% 
@@ -58,7 +61,7 @@ median(df_new_data$total)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{R echo =TRUE, eval = FALSE, include=TRUE}
+```{R echo =TRUE, message = FALSE}
 library(ggplot2)
 df_new <- df_new %>% 
   mutate(day = weekdays(date))%>%  
