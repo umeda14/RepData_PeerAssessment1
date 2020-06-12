@@ -7,8 +7,8 @@ output:
 
 
 ## Loading and preprocessing the data
-```{R}
-setwd("C:/Users/loaner/Documents/GitHub/RepData_PeerAssessment1/")
+```{R echo = TRUE}
+setwd("C:/Users/16469/Documents/GitHub/RepData_PeerAssessment1/")
 # unzip the data if file doesn't exist
 if(!file.exists("acitivity.csv"))
   unzip("activity.zip")
@@ -16,28 +16,63 @@ if(!file.exists("acitivity.csv"))
 # read the data and adjust the classes
 df <- read.csv("activity.csv", header = T,  stringsAsFactors = F,) 
 df$date <- as.Date(df$date)
-df$interval <-as.character(df$interval)
-str(df)
+```
 ## What is mean total number of steps taken per day?
+```{R echo = TRUE}
 library("dplyr")
 df_summary <- df%>%
   group_by(date)%>%
-  summarize(total = sum(steps), mean= mean(steps), median= median(steps))
-df_summary
+  summarize(total = sum(steps,na.rm = TRUE) )
 hist(df_summary$total)
+mean(df_summary$total)
+median(df_summary$total)
+```
 ## What is the average daily activity pattern?
-with(df_summary, plot(x = date, y = mean, type ="l"))
-
-df_interval <- df%>%
+```{R echo = TRUE}
+df_daily <- df%>%
   group_by(interval)%>%
-  summarise(mean = mean(steps))
-str(df_interval)
-which.max(df_interval$mean)
+  summarize(mean = mean(steps, na.rm = TRUE))
+
+plot(x = df_daily$interval, y = df_daily$mean, type = "l" , xlab = "interval", ylab = "mean" )
+df_daily[which.max(df_daily$mean),]$interval
+
 ```
 
 
 ## Imputing missing values
+```{R echo = TRUE}
+sum(is.na(df$steps))
+#NA is replaced by the mean value
+df_new <- df %>% 
+  group_by(interval)%>%
+  mutate(steps=ifelse(is.na(steps), mean(steps, na.rm = TRUE), steps))
 
+#Make a histogram and calculate mean and median 
+df_new_data <- df_new%>%
+  group_by(date)%>%
+  summarize(total = sum(steps))
+hist(df_new_data$total)
+mean(df_new_data$total)
+median(df_new_data$total)
 
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{R echo =TRUE}
+library(ggplot2)
+df_new <- df_new %>% 
+  mutate(day = weekdays(date))%>%  
+  mutate(day = case_when(
+    day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
+    day %in% c("Saturday", "Sunday") ~ "Weekend"))
+
+df_daily <- df_new%>%
+  group_by(interval, day)%>%
+  summarize(mean = mean(steps))
+
+ggplot(data=df_daily, aes(x = interval , y = mean))+
+  geom_line()+
+  facet_wrap(~day)
+
+```
+
