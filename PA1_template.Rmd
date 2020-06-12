@@ -7,7 +7,7 @@ output:
 
 
 ## Loading and preprocessing the data
-```{R echo = TRUE}
+```{R echo = TRUE, eval= FALSE}
 setwd("C:/Users/16469/Documents/GitHub/RepData_PeerAssessment1/")
 # unzip the data if file doesn't exist
 if(!file.exists("acitivity.csv"))
@@ -18,7 +18,7 @@ df <- read.csv("activity.csv", header = T,  stringsAsFactors = F,)
 df$date <- as.Date(df$date)
 ```
 ## What is mean total number of steps taken per day?
-```{R echo = TRUE}
+```{R echo = TRUE, eval = FALSE}
 library("dplyr")
 df_summary <- df%>%
   group_by(date)%>%
@@ -28,7 +28,7 @@ mean(df_summary$total)
 median(df_summary$total)
 ```
 ## What is the average daily activity pattern?
-```{R echo = TRUE}
+```{R echo = TRUE, eval = FALSE}
 df_daily <- df%>%
   group_by(interval)%>%
   summarize(mean = mean(steps, na.rm = TRUE))
@@ -40,7 +40,7 @@ df_daily[which.max(df_daily$mean),]$interval
 
 
 ## Imputing missing values
-```{R echo = TRUE}
+```{R echo = TRUE, eval = FALSE}
 sum(is.na(df$steps))
 #NA is replaced by the mean value
 df_new <- df %>% 
@@ -58,7 +58,7 @@ median(df_new_data$total)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{R echo =TRUE}
+```{R echo =TRUE, eval = FALSE, include=TRUE}
 library(ggplot2)
 df_new <- df_new %>% 
   mutate(day = weekdays(date))%>%  
