@@ -1,7 +1,6 @@
----
-title: 'Reproducible Research: Peer Assessment 1'
 
----
+title: 'Reproducible Research: Peer Assessment 1'
+=======================================================
 
 
 ## Loading and preprocessing the data
@@ -26,7 +25,7 @@ df_summary <- df%>%
 hist(df_summary$total, main = "Histogram of total number of steps", xlab = "Steps")
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 ```r
 mean(df_summary$total)
@@ -53,7 +52,7 @@ df_daily <- df%>%
 plot(x = df_daily$interval, y = df_daily$mean, type = "l" , xlab = "interval", ylab = "mean" )
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 ```r
 df_daily[which.max(df_daily$mean),]$interval
@@ -87,7 +86,7 @@ df_new_data <- df_new%>%
 hist(df_new_data$total, main = "Histogram of total number of steps", xlab = "Steps")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 ```r
 mean(df_new_data$total)
@@ -124,5 +123,5 @@ ggplot(data=df_daily, aes(x = interval , y = mean))+
   facet_wrap(~day)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
 
