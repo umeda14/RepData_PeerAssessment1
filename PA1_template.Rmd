@@ -1,9 +1,6 @@
 ---
 title: 'Reproducible Research: Peer Assessment 1'
-output:
-  html_document:
-    keep_md: yes
-  pdf_document: default
+
 ---
 
 
@@ -26,7 +23,7 @@ library("dplyr")
 df_summary <- df%>%
   group_by(date)%>%
   summarize(total = sum(steps,na.rm = TRUE) )
-hist(df_summary$total)
+hist(df_summary$total, main = "Histogram of total number of steps", xlab = "Steps")
 mean(df_summary$total)
 median(df_summary$total)
 ```
@@ -50,11 +47,11 @@ df_new <- df %>%
   group_by(interval)%>%
   mutate(steps=ifelse(is.na(steps), mean(steps, na.rm = TRUE), steps))
 
-#Make a histogram and calculate mean and median 
+#Make a histogram and calculate a new mean and median 
 df_new_data <- df_new%>%
   group_by(date)%>%
   summarize(total = sum(steps))
-hist(df_new_data$total)
+hist(df_new_data$total, main = "Histogram of total number of steps", xlab = "Steps")
 mean(df_new_data$total)
 median(df_new_data$total)
 
