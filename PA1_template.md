@@ -1,15 +1,16 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
   html_document:
-    keep_md: true
+    keep_md: yes
+  pdf_document: default
 ---
 
 
 ## Loading and preprocessing the data
 
+
 ```r
-setwd("C:/Users/16469/Documents/GitHub/RepData_PeerAssessment1/")
 # unzip the data if file doesn't exist
 if(!file.exists("acitivity.csv"))
   unzip("activity.zip")
@@ -26,8 +27,24 @@ df_summary <- df%>%
   group_by(date)%>%
   summarize(total = sum(steps,na.rm = TRUE) )
 hist(df_summary$total)
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+```r
 mean(df_summary$total)
+```
+
+```
+## [1] 9354.23
+```
+
+```r
 median(df_summary$total)
+```
+
+```
+## [1] 10395
 ```
 ## What is the average daily activity pattern?
 
@@ -37,7 +54,16 @@ df_daily <- df%>%
   summarize(mean = mean(steps, na.rm = TRUE))
 
 plot(x = df_daily$interval, y = df_daily$mean, type = "l" , xlab = "interval", ylab = "mean" )
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+```r
 df_daily[which.max(df_daily$mean),]$interval
+```
+
+```
+## [1] 835
 ```
 
 
@@ -45,6 +71,13 @@ df_daily[which.max(df_daily$mean),]$interval
 
 ```r
 sum(is.na(df$steps))
+```
+
+```
+## [1] 2304
+```
+
+```r
 #NA is replaced by the mean value
 df_new <- df %>% 
   group_by(interval)%>%
@@ -55,8 +88,24 @@ df_new_data <- df_new%>%
   group_by(date)%>%
   summarize(total = sum(steps))
 hist(df_new_data$total)
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+```r
 mean(df_new_data$total)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 median(df_new_data$total)
+```
+
+```
+## [1] 10766.19
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -77,4 +126,6 @@ ggplot(data=df_daily, aes(x = interval , y = mean))+
   geom_line()+
   facet_wrap(~day)
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
