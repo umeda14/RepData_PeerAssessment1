@@ -1,5 +1,8 @@
-
+---
+output: html_document
 title: 'Reproducible Research: Peer Assessment 1'
+---
+
 =======================================================
 
 
@@ -26,6 +29,8 @@ hist(df_summary$total, main = "Histogram of total number of steps", xlab = "Step
 mean(df_summary$total)
 median(df_summary$total)
 ```
+- Mean is 9354.23. Median is 10395.
+
 ## What is the average daily activity pattern?
 ```{R echo = TRUE, message = FALSE}
 df_daily <- df%>%
@@ -36,7 +41,7 @@ plot(x = df_daily$interval, y = df_daily$mean, type = "l" , xlab = "interval", y
 df_daily[which.max(df_daily$mean),]$interval
 
 ```
-
+- The 835th interval is the highest.
 
 ## Imputing missing values
 ```{R echo = TRUE, message = FALSE}
@@ -53,8 +58,8 @@ df_new_data <- df_new%>%
 hist(df_new_data$total, main = "Histogram of total number of steps", xlab = "Steps")
 mean(df_new_data$total)
 median(df_new_data$total)
-
 ```
+- Missing values are 2304. Mean is 10766.19. Mean is 10766.19.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{R echo =TRUE, message = FALSE}
